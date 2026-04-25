@@ -35,29 +35,42 @@ Applications such as \textit{AsthmaMD} allow users to manually log symptoms and 
 \subsection{Comparison of Systems}
 Table \ref{tab:comparison} summarizes the features of existing solutions compared to the proposed proactive monitoring system.
 
-\begin{table}[htbp]
+\begin{table*}[t] 
 \caption{Comparison of Pediatric Asthma Monitoring Solutions}
 \label{tab:comparison}
 \begin{center}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Feature} & \textbf{AsthmaMD} & \textbf{Propeller} & \textbf{Smart Asthma} & \textbf{Proposed} \\
+\textbf{Feature} & \textbf{AsthmaMD} & \textbf{Propeller} & \textbf{Smart Asthma} & \textbf{Proposed System} \\
 \hline
 Real-time $SpO_2$ & No & No & No & \textbf{Yes} \\
 \hline
-PM2.5 Sensor & No & Limited & No & \textbf{Yes} \\
+Real-time PM2.5 & No & Limited & No & \textbf{Yes} \\
 \hline
 Heart Rate & No & No & No & \textbf{Yes} \\
 \hline
-Automation & Manual & Semi & Manual & \textbf{Full} \\
+Early Warning & Manual & Adherence-based & Manual & \textbf{Proactive Fusion} \\
 \hline
 \end{tabular}
 \end{center}
-\end{table}
+\end{table*}
 
 
+\section{Methodology}
+The proposed system follows a three-tier IoT architecture consisting of the Perception Layer (sensors), the Network Layer (ESP32 gateway), and the Application Layer (Cloud/Mobile app) \cite{Li2018}. This section details the hardware and software components utilized to bridge the "trigger gap" in pediatric asthma monitoring.
+
+\subsection{Hardware Architecture}
+The hardware prototype is designed as a low-cost, multi-sensory wearable system. The central processing unit is an \textbf{ESP32 microcontroller}, chosen for its dual-mode Bluetooth and integrated Wi-Fi capabilities, which are essential for seamless cloud data transmission \cite{Li2018, IJERT2021}. 
+
+The sensing unit consists of two primary modules:
+\begin{itemize}
+    \item \textbf{Physiological Module:} A \textit{MAX30102} high-sensitivity pulse oximeter and heart-rate sensor is used to monitor $SpO_2$ levels and pulse frequency \cite{IJERT2021}.
+    \item \textbf{Environmental Module:} To track external asthma triggers, the system integrates a \textit{DHT22} sensor for high-accuracy temperature and humidity readings, alongside an \textit{MQ-135} air quality sensor for detecting harmful gases and $PM_{2.5}$ surrogates \cite{Li2018, Wang2026}.
+\end{itemize}
 
 
+\subsection{Software Design and Data Flow}
+The software architecture is governed by an "Asthma Risk Engine" that performs real-time data fusion. As defined in the system's logical view, the ESP32 samples data and transmits it via secure HTTPS to a Firebase cloud backend for persistent storage and analysis \cite{Li2018, IJERT2021}. The risk engine compares incoming physiological data against clinical thresholds; for instance, a drop in $SpO_2$ below 94\% combined with elevated $PM_{2.5}$ levels triggers an immediate push notification to the parent's mobile application \cite{Nature2026}.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
