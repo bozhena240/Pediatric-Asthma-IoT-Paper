@@ -26,6 +26,35 @@ In Turkey and the surrounding regions, the challenges of pediatric asthma are am
 Furthermore, the economic burden of reactive care is significant. In Turkey, the cost of managing uncontrolled asthma is nearly double that of well-controlled cases, primarily due to preventable hospitalizations. By integrating real-time environmental triggers like PM2.5 and humidity—which show the strongest correlation with pediatric ER visits in the Middle East,\cite{SaudiAsthma2025} this project seeks to bridge the gap between evidence-based recommendations and the current reality of reactive pediatric care.
 
 
+\section{Related Work}
+Existing digital health solutions for asthma management primarily focus on medication adherence and symptom logging. However, these systems often lack real-time physiological monitoring and integrated environmental analysis.
+
+\subsection{Current Digital Health Solutions}
+Applications such as \textit{AsthmaMD} allow users to manually log symptoms and peak-flow data, but they do not provide continuous monitoring of vital signs like $SpO_2$ or heart rate. Systems like \textit{Propeller Health} utilize inhaler-mounted sensors to track medication usage and provide basic environmental risk data, yet they remain reactive as they do not measure real-time physiological distress. Furthermore, \textit{Smart Asthma} utilizes an electronic peak-flow meter for forecasting, but it still requires active user participation rather than passive, continuous monitoring.
+
+\subsection{Comparison of Systems}
+Table \ref{tab:comparison} summarizes the features of existing solutions compared to the proposed proactive monitoring system.
+
+\begin{table}[htbp]
+\caption{Comparison of Pediatric Asthma Monitoring Solutions}
+\label{tab:comparison}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Feature} & \textbf{AsthmaMD} & \textbf{Propeller} & \textbf{Smart Asthma} & \textbf{Proposed} \\
+\hline
+Real-time $SpO_2$ & No & No & No & \textbf{Yes} \\
+\hline
+PM2.5 Sensor & No & Limited & No & \textbf{Yes} \\
+\hline
+Heart Rate & No & No & No & \textbf{Yes} \\
+\hline
+Automation & Manual & Semi & Manual & \textbf{Full} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
 
 
 
