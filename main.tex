@@ -1,5 +1,6 @@
 \documentclass[two column]{article}
 \usepackage{graphicx} 
+\usepackage{float}
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1cm]{geometry}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
@@ -18,7 +19,7 @@ Asthma is a major health issue for children, often triggered by environmental fa
 
 While there are many asthma apps available, most lack real-time data. For example, apps like AsthmaMD require manual input, and systems like Propeller Health do not track heart rate or oxygen levels. There is a clear need for a tool that combines body sensors with environmental data.
 
-In this project, I develope a smart wearable prototype using an ESP32 microcontroller\cite{Li2026}. This system collects physiological data (pulse, $SpO_2$) and environmental data (PM2.5, temperature) to provide an early warning for potential attacks \cite{Pubmed2026}. By using "data fusion," we can offer a more accurate and proactive way to keep children safe.\cite{WHO}
+In this project, I develope a smart wearable prototype using an ESP32 microcontroller\cite{Li2018}. This system collects physiological data (pulse, $SpO_2$) and environmental data (PM2.5, temperature) to provide an early warning for potential attacks \cite{Pubmed2026}. By using "data fusion," we can offer a more accurate and proactive way to keep children safe.\cite{WHO}
 
 \subsection{Regional Context and the Reactive Gap}
 In Turkey and the surrounding regions, the challenges of pediatric asthma are amplified by rapid urbanization and environmental surge events. Recent data from Istanbul indicates a 9\% year-over-year increase in air pollution, with over 90\% of the urban population exposed to air quality that adversely impacts respiratory health. In such overwhelming healthcare systems that lack proactive warning mechanisms.\cite{IstanbulPollution2026}
@@ -71,6 +72,39 @@ The sensing unit consists of two primary modules:
 
 \subsection{Software Design and Data Flow}
 The software architecture is governed by an "Asthma Risk Engine" that performs real-time data fusion. As defined in the system's logical view, the ESP32 samples data and transmits it via secure HTTPS to a Firebase cloud backend for persistent storage and analysis \cite{Li2018, IJERT2021}. The risk engine compares incoming physiological data against clinical thresholds; for instance, a drop in $SpO_2$ below 94\% combined with elevated $PM_{2.5}$ levels triggers an immediate push notification to the parent's mobile application \cite{Nature2026}.
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.4\textwidth]{class_diagram} 
+    \caption{System Class Diagram: Structural view of sensors and risk engine.}
+    \label{fig:class_diagram}
+\end{figure}
+
+\subsection{Software Design and System Logic}
+The software architecture is designed to transition asthma management from manual logging to autonomous proactive analysis \cite{Gny2019}. The system logic follows a continuous cycle of data acquisition, risk calculation, and automated alerting to minimize user intervention \cite{IJERT2021}.
+
+\subsubsection{Data Fusion and Risk Engine}
+The core of the system is the "Asthma Risk Engine," which performs multi-modal data fusion by correlating physiological metrics ($SpO_2$ and heart rate) with environmental triggers (PM2.5 and humidity) \cite{Li2018}. As defined in the system's behavioral model, the engine operates in four primary states: \textit{Monitoring}, \textit{Analysis}, \textit{Elevated Risk}, and \textit{Notification}. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{sequence_diagram}
+    \caption{Sequence Diagram illustrating the high-risk detection and notification interaction flow.}
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Threshold-Based Alerting}
+The system utilizes a rule-based algorithm to identify potential attacks before they escalate. For instance, if the $SpO_2$ level drops below a clinical threshold of 94\% while local PM2.5 levels exceed 35 $\mu g/m^3$, the engine transitions to the "Elevated" state \cite{Li2018}. This transition triggers a high-priority alert through the Firebase Cloud Messaging (FCM) service, which is then pushed to the parent's mobile application.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{behavioral_model}
+    \caption{State Machine Diagram depicting the lifecycle of an asthma risk alert.}
+    \label{fig:behavior}
+\end{figure}
+
+\subsubsection{Cloud and Mobile Integration}
+The mobile interface, developed in React Native, provides a real-time dashboard for caregivers to monitor health trends and environmental exposure. All data is synchronized via secure HTTPS to a Firebase Realtime Database, ensuring that historical logs are available for medical review during doctor consultations \cite{IJERT2021, Li2018}.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
