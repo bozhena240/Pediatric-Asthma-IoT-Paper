@@ -85,6 +85,7 @@ The software architecture is governed by an "Asthma Risk Engine" that performs r
 \subsection{Software Design and System Logic}
 The software architecture is designed to transition asthma management from manual logging to autonomous proactive analysis \cite{Gny2019}. The system logic follows a continuous cycle of data acquisition, risk calculation, and automated alerting to minimize user intervention \cite{IJERT2021}. By offloading the monitoring burden from the caregiver to the ESP32 firmware, the system ensures that subtle physiological changes are not overlooked during nocturnal periods or high-activity sessions.
 
+
 \subsubsection{Data Fusion and Risk Engine}
 The core of the system is the "Asthma Risk Engine," which performs multi-modal data fusion by correlating physiological metrics ($SpO_2$ and heart rate) with environmental triggers (PM2.5 and humidity) \cite{Li2018}. As defined in the system's behavioral model, the engine operates in four primary states: \textit{Monitoring}, \textit{Analysis}, \textit{Elevated Risk}, and \textit{Notification}. 
 
@@ -109,6 +110,11 @@ The system utilizes a rule-based algorithm to identify potential attacks before 
 \subsubsection{Cloud and Mobile Integration}
 The mobile interface, developed in React Native, provides a real-time dashboard for caregivers to monitor health trends and environmental exposure. All data is synchronized via secure HTTPS to a Firebase Realtime Database, ensuring that historical logs are available for medical review during doctor consultations \cite{IJERT2021, Li2018}.
 
+\subsection{Wearable Integration and Prototype Form Factor}
+The proposed system is designed to be housed in a lightweight, wrist-worn enclosure to ensure continuous monitoring without obstructing the child's daily movement. For the current prototyping phase, the components are integrated into a modified off-the-shelf wearable casing. 
+
+The \textbf{MAX30102} sensor is mounted on the inner surface of the strap to maintain constant skin contact for $SpO_2$ and heart rate acquisition. The \textbf{ESP32} and power management circuit are housed within the main chassis. To ensure accurate environmental sampling, the \textbf{DHT22} and air quality sensors are positioned near lateral openings in the casing, preventing body heat from skewing the ambient temperature and humidity data. This design prioritizes a "watch" form factor.
+
 \section{Results and Discussion}
 To evaluate the efficacy of the proposed "Asthma Risk Engine," the system logic was validated against high-fidelity datasets from Kaggle. This approach allowed for a "Digital Twin" validation where hardware sensor logic was tested against 2,000+ real-world clinical entries.
 
@@ -120,10 +126,11 @@ Furthermore, the \textit{Multi-Sensor Medical IoT Dataset} was utilized to simul
 \subsection{Performance Metrics}
 The system's operational efficiency is summarized in Table \ref{tab:results}.
 
-\begin{table}[htbp]
+\begin{table}[H] % [H] forces it to stay exactly in this spot
+\centering
 \caption{System Performance and Accuracy Metrics}
 \label{tab:results}
-\begin{center}
+\resizebox{0.95\columnwidth}{!}{
 \begin{tabular}{|l|c|c|}
 \hline
 \textbf{Metric} & \textbf{Validation Source} & \textbf{Value} \\
@@ -137,13 +144,16 @@ False Positive Rate & Kaggle Medical IoT \cite{KaggleIoTSensors2026} & 4.2\% \\
 Cloud Sync Success Rate & Firebase Backend & 99.1\% \\
 \hline
 \end{tabular}
-\end{center}
+}
 \end{table}
 
 \subsection{Discussion}
 The integration of clinical data suggests that the hardware prototype's multi-sensory approach is significantly more reliable than manual logging. While existing apps like \textit{AsthmaMD} rely on parental memory, our results indicate that passive monitoring of $PM_{2.5}$ and $SpO_2$ can identify early warning signs up to 20 minutes before a physical symptom becomes visible to the eye.
 
+\section{Conclusion}
+This study presented a low-cost, IoT-based proactive monitoring system designed to bridge the "trigger gap" in pediatric asthma management. By integrating an ESP32 microcontroller with multi-sensory data fusion, the system successfully transitions asthma care from reactive manual logging to autonomous, real-time alerting. Validation against established respiratory datasets confirmed a 92.4\% accuracy in risk detection, demonstrating that affordable hardware can provide clinical-grade insights. 
 
+Future work will focus on integrating machine learning models directly onto the edge device to enable personalized forecasting of asthma attacks based on individual patient history. Additionally, the inclusion of GPS modules could provide localized "heat maps" of asthma triggers, offering a powerful tool for public health officials in urban centers like Istanbul.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
